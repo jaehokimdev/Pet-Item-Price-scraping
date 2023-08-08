@@ -5,6 +5,7 @@ const chrome = require("selenium-webdriver/chrome");
 
 const getWalmart = async (keyword) => {
   let driver = await new Builder().forBrowser("chrome").build();
+  let items = [];
   try {
     await driver.get(
       "https://www.walmart.ca/search?q=" + encodeURI(keyword) + "&c=21103"
@@ -17,17 +18,20 @@ const getWalmart = async (keyword) => {
     prices = await driver.findElements(By.className("css-8frhg8"));
     images = await driver.findElements(By.className("css-19q6667"));
     addresses = await driver.findElements(By.className("css-770c6j"));
-    for (var i = 0; i < titles.length - 18; i++) {
-      console.log("title: " + (await titles[i].getText()));
-      console.log("price: " + (await prices[i].getText()));
-      console.log("image: " + (await images[i].getAttribute("src")));
-      console.log("address: "(await addresses[i].getAttribute("href")));
+    for (var i = 0; i < prices.length; i++) {
+      items.push({
+        title: await titles[i].getText(),
+        price: await prices[i].getText(),
+        image: await images[i].getAttribute("src"),
+        address: await addresses[i].getAttribute("href"),
+      });
     }
   } catch (e) {
     console.error(e);
   } finally {
     await driver.quit();
   }
+  console.log(items);
 };
 
 const getPetSmart = async (keyword) => {
