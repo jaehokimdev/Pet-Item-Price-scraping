@@ -1,5 +1,37 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { Builder, By, Key, until } = require("selenium-webdriver");
+const chrome = require("selenium-webdriver/chrome");
+
+const getWalmart = async (keyword) => {
+  let driver = await new Builder().forBrowser("chrome").build();
+  try {
+    await driver.get(
+      "https://www.walmart.ca/search?q=" + encodeURI(keyword) + "&c=21103"
+    );
+    let time = await driver.wait(
+      until.elementLocated(By.className("css-1p4va6y")),
+      15000
+    );
+    titles = await driver.findElements(By.className("css-1p4va6y"));
+    prices = await driver.findElements(By.className("css-8frhg8"));
+    images = await driver.findElements(By.className("css-19q6667"));
+    addresses = await driver.findElements(By.className("css-770c6j"));
+    for (var i = 0; i < titles.length - 17; i++) {
+      console.log("title: " + (await titles[i].getText()));
+      console.log("price: " + (await prices[i].getText()));
+      console.log("image: " + (await images[i].getAttribute("src")));
+      console.log(
+        "address: https://walmart.ca" +
+          (await addresses[i].getAttribute("href"))
+      );
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await driver.quit();
+  }
+};
 
 const getPetSmart = async (keyword) => {
   try {
@@ -16,17 +48,6 @@ const getPetValue = async (keyword) => {
   try {
     return await axios.get(
       "https://www.petvalu.ca/search?query=" + encodeURI(keyword)
-    );
-  } catch (e) {
-    console.error(e);
-  }
-};
-
-const getCanadianTire = async (keyword) => {
-  try {
-    return await axios.get(
-      "https://www.canadiantire.ca/en/search-results.html?q=" +
-        encodeURI(keyword)
     );
   } catch (e) {
     console.error(e);
@@ -74,26 +95,8 @@ const parsingPetValue = async (keyword) => {
   console.log(items);
 };
 
-const parsingCanadianTire = async (keyword) => {
-  const html = await getCanadianTire(keyword);
-  const $ = cheerio.load(html.data);
-  const $itemList = $(".nl-product__content");
-  let items = [];
-  $itemList.each((idx, node) => {
-    items.push({
-      title: $(node).find(".nl-product-card__title").text(),
-      price: $(node).find(".ProductResultPrice__ProductPrice").text(),
-      image:
-        "https://www.petvalu.ca" +
-        $(node).find(".Img__Wrapper > img").attr("src"),
-      address:
-        "https://www.petvalu.ca" +
-        $(node).find(".ProductResultImage").attr("href"),
-    });
-  });
-  console.log(items);
-};
-
 // parsingPetSmart("arm and hammer");
 // parsingPetValue("cat food");
-parsingCanadianTire("cat food");
+// parsingWalmart("water");
+
+getWalmart("cat food");
