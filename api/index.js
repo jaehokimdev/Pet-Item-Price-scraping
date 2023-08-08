@@ -34,6 +34,42 @@ const getWalmart = async (keyword) => {
   console.log(items);
 };
 
+const getCanadianTire = async (keyword) => {
+  let driver = await new Builder().forBrowser("chrome").build();
+  let items = [];
+  try {
+    await driver.get(
+      "https://www.canadiantire.ca/en/search-results.html?q=" +
+        encodeURI(keyword)
+    );
+    let time = await driver.wait(
+      until.elementLocated(By.className("nl-product-card__image-wrap")),
+      15000
+    );
+    titles = await driver.findElements(By.className("nl-product-card__title"));
+    prices = await driver.findElements(By.className("nl-price--total"));
+    images = await driver.findElements(
+      By.xpath("//div[@class='nl-product-card__image-wrap']/img")
+    );
+    addresses = await driver.findElements(
+      By.className("nl-product-card__no-button")
+    );
+    for (var i = 0; i < prices.length; i++) {
+      items.push({
+        title: await titles[i].getText(),
+        price: await prices[i].getText(),
+        image: await images[i].getAttribute("data-src"),
+        address: await addresses[i].getAttribute("href"),
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await driver.quit();
+  }
+  console.log(items);
+};
+
 const getPetSmart = async (keyword) => {
   try {
     return await axios.get(
@@ -99,5 +135,4 @@ const parsingPetValue = async (keyword) => {
 // parsingPetSmart("arm and hammer");
 // parsingPetValue("cat food");
 // parsingWalmart("water");
-
-getWalmart("cat food");
+getCanadianTire("cat food");
