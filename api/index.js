@@ -17,14 +17,11 @@ const getWalmart = async (keyword) => {
     prices = await driver.findElements(By.className("css-8frhg8"));
     images = await driver.findElements(By.className("css-19q6667"));
     addresses = await driver.findElements(By.className("css-770c6j"));
-    for (var i = 0; i < titles.length - 17; i++) {
+    for (var i = 0; i < titles.length - 18; i++) {
       console.log("title: " + (await titles[i].getText()));
       console.log("price: " + (await prices[i].getText()));
       console.log("image: " + (await images[i].getAttribute("src")));
-      console.log(
-        "address: https://walmart.ca" +
-          (await addresses[i].getAttribute("href"))
-      );
+      console.log("address: "(await addresses[i].getAttribute("href")));
     }
   } catch (e) {
     console.error(e);
