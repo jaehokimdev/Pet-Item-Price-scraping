@@ -70,6 +70,55 @@ const getCanadianTire = async (keyword) => {
   console.log(items);
 };
 
+const getAmazon = async () => {
+  let driver = await new Builder().forBrowser("chrome").build();
+  let items = [];
+  try {
+    await driver.get("https://www.amazon.ca");
+    let time = await driver.wait(
+      until.elementLocated(By.id("twotabsearchtextbox")),
+      15000
+    );
+
+    searchBox = await driver.findElement(By.id("twotabsearchtextbox"));
+    await searchBox.sendKeys("cat food");
+    searchButton = await driver.findElement(By.id("nav-search-submit-button"));
+    await searchBox.click();
+
+    let times = await driver.wait(
+      until.elementLocated(By.className("a-price-whole")),
+      15000
+    );
+    titles = await driver.findElements(
+      By.xpath(
+        "//a[@class='a-link-normal s-underline-text s-underline-link-text s-link-style a-text-normal']"
+      )
+    );
+    prices = await driver.findElements(By.className("a-price-whole"));
+    // images = await driver.findElements(
+    //   By.xpath("//div[@class='nl-product-card__image-wrap']/img")
+    // );
+    // addresses = await driver.findElements(
+    //   By.className("nl-product-card__no-button")
+    // );
+
+    for (var i = 0; i < prices.length; i++) {
+      items.push({
+        // title: await titles[i].getText(),
+        price: await prices[i].getText(),
+        // image: await images[i].getAttribute("data-src"),
+        // address: await addresses[i].getAttribute("href"),
+      });
+    }
+    console.log(titles);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await driver.quit();
+  }
+  console.log(items);
+};
+
 const getPetSmart = async (keyword) => {
   try {
     return await axios.get(
@@ -135,4 +184,4 @@ const parsingPetValue = async (keyword) => {
 // parsingPetSmart("arm and hammer");
 // parsingPetValue("cat food");
 // parsingWalmart("water");
-getCanadianTire("cat food");
+// getCanadianTire("cat food");
