@@ -1,7 +1,11 @@
+const express = require("express");
+const app = express();
 const axios = require("axios");
 const cheerio = require("cheerio");
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
+
+app.use(express.json());
 
 const getWalmart = async (keyword) => {
   let driver = await new Builder().forBrowser("chrome").build();
