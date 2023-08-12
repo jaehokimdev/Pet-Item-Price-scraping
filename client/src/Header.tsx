@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 type Props = {};
 
 const Header = (props: Props) => {
