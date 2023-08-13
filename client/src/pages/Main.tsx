@@ -7,7 +7,7 @@ const Main = (props: Props) => {
     <div className="p-4 flex flex-col min-h-screen">
       <div className="mt-10 grow flex items-center justify-around">
         <div className="mb-64">
-          <div className="sm:text-6xl text-4xl flex mb-4 gap-2 my-auto">
+          <div className="sm:text-6xl text-4xl flex justify-center mb-10 gap-2 my-auto">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -24,15 +24,15 @@ const Main = (props: Props) => {
             </svg>
             <span className="font-bold">FindPetItems</span>
           </div>
-          <form className="max-w-xl">
+          <form className="max-w-xl flex flex-col justify-center items-center">
             <input
-              className="sm:w-[40rem] w-72 flex border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 mb-3"
+              className="sm:w-[40rem] w-72 flex border border-gray-300 rounded-full py-3 px-4 shadow-md shadow-gray-300 mb-7"
               type="text"
               placeholder="ex) arm and hammer"
             />
             <button
               type="submit"
-              className="border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 items-center"
+              className="border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 w-24"
             >
               Search
             </button>
