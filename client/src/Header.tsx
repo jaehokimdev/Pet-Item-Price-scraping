@@ -2,49 +2,54 @@ type Props = {};
 
 const Header = (props: Props) => {
   return (
-    <header className="flex justify-between">
-      <a href="" className="flex items-center gap-1">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-          />
-        </svg>
-
-        <span className="font-bold text-xl">FindPetItems</span>
-      </a>
-      <div className="flex gap-2 border border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300">
-        {/* <div>Anywhere</div>
-        <div className="border border-l border-gray-300"></div>
-        <div>Any week</div>
-        <div className="border border-l border-gray-300"></div>
-        <div>Add guests</div> */}
-        <button className="bg-primary text-white p-1 rounded-full">
+    <div>
+      <header className="flex justify-between p-4">
+        <a href="" className="flex items-center gap-1">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth={1.5}
             stroke="currentColor"
-            className="w-4 h-4"
+            className="sm:w-6 sm:h-6 w-3 h-3"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
             />
           </svg>
-        </button>
-      </div>
-      {/* <Link
+          <span className="font-bold lg:text-xl max-sm:hidden">
+            FindPetItems
+          </span>
+          <span className="font-bold lg:hidden max-sm:text-xl">FPI</span>
+        </a>
+        <div>
+          <input
+            className="w-[40rem] max-sm:w-64 flex border border-gray-300 rounded-full sm:py-3 sm:px-4 py-1 px-2 shadow-md shadow-gray-300"
+            type="text"
+            placeholder="ex) arm and hammer"
+          />
+        </div>
+        <div className="flex">
+          <button className="bg-primay p-1 rounded-full">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-6 h-6"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+              />
+            </svg>
+          </button>
+        </div>
+        {/* <Link
         to={"/login"}
         className="flex items-center gap-2 border border-gray-300 rounded-full py-2 px-4"
       >
@@ -77,7 +82,9 @@ const Header = (props: Props) => {
           </svg>
         </div>
       </Link> */}
-    </header>
+      </header>
+      <hr className="border-gray-200 border-1" />
+    </div>
   );
 };
 
