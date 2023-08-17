@@ -185,7 +185,7 @@ const parsingPetValue = async (keyword) => {
   console.log(items);
 };
 
-// parsingPetSmart("arm and hammer");
+parsingPetSmart("arm and hammer");
 // parsingPetValue("cat food");
 // parsingWalmart("water");
 // getCanadianTire("cat food");
