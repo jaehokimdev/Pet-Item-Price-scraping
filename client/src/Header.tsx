@@ -65,7 +65,14 @@ const Header = (props: Props) => {
                 <XMarkIcon className="h-6 w-6 text-gray-400" />
               </button>
             </div>
-            <div className="ml-[33%] flex flex-col gap-10 text-2xl">
+            <div className="ml-[20%] flex flex-col gap-10 text-2xl max-sm:text-xl">
+              <Link
+                to={"/search/totalresult"}
+                onClick={() => setIsMenuToggled(!isMenuToggled)}
+                className="font-bold hover:text-gray-300"
+              >
+                Total
+              </Link>
               <Link
                 to={"/search/petsmart"}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
