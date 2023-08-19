@@ -1,4 +1,7 @@
-import dummy from "../dummy/dummyapi";
+import smartdummy from "../dummy/petsmartdummy";
+import valuedummy from "../dummy/petvaluedummy";
+import walmartdummy from "../dummy/walmartdummy";
+import canadinatiredummy from "../dummy/canadiantiredummy";
 import Card from "./Card";
 import petsmartlogo from "../img/petsmart-logo.png";
 import petvaluelogo from "../img/petvalue-logo.svg";
@@ -22,7 +25,7 @@ const Totalresult = () => {
         </div>
         <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
-            {dummy.map((info: InfoType) => (
+            {smartdummy.map((info: InfoType) => (
               <Card
                 title={info.title}
                 price={info.price}
@@ -40,7 +43,7 @@ const Totalresult = () => {
         </div>
         <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
-            {dummy.map((info: InfoType) => (
+            {valuedummy.map((info: InfoType) => (
               <Card
                 title={info.title}
                 price={info.price}
@@ -58,7 +61,7 @@ const Totalresult = () => {
         </div>
         <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
-            {dummy.map((info: InfoType) => (
+            {walmartdummy.map((info: InfoType) => (
               <Card
                 title={info.title}
                 price={info.price}
@@ -76,7 +79,7 @@ const Totalresult = () => {
         </div>
         <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
-            {dummy.map((info: InfoType) => (
+            {canadinatiredummy.map((info: InfoType) => (
               <Card
                 title={info.title}
                 price={info.price}

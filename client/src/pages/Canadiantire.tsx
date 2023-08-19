@@ -1,4 +1,4 @@
-import dummy from "../dummy/dummyapi";
+import canadinatiredummy from "../dummy/canadiantiredummy";
 import Card from "./Card";
 import canadiantirelogo from "../img/canadiantire-logo.svg";
 
@@ -18,7 +18,7 @@ const Canadiantire = () => {
           <span className="font-bold text-xl">CanadianTire</span>
         </div>{" "}
         <div className="mt-6">
-          {dummy.map((info: InfoType) => (
+          {canadinatiredummy.map((info: InfoType) => (
             <Card
               title={info.title}
               price={info.price}

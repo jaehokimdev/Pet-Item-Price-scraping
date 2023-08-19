@@ -1,4 +1,4 @@
-const dummy = [
+const smartdummy = [
   {
     title: "Arm & Hammer Clump & Seal Cat Litter - Clumping, Multi-Cat",
     price: "$ 29.99",
@@ -197,4 +197,4 @@ const dummy = [
   },
 ];
 
-export default dummy;
+export default smartdummy;

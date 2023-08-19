@@ -1,4 +1,4 @@
-import dummy from "../dummy/dummyapi";
+import dummy from "../dummy/petvaluedummy";
 import Card from "./Card";
 import petsmartlogo from "../img/petsmart-logo.png";
 

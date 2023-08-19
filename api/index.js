@@ -170,10 +170,16 @@ const parsingPetValue = async (keyword) => {
   const $itemList = $(".DynamicProductListItem__Product");
   let items = [];
   $itemList.each((idx, node) => {
-    console.log(node);
+    let preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
+    if (preprice.lastIndexOf("$") !== 0) {
+      preprice = preprice.substring(0, preprice.lastIndexOf("$")) + " SALE";
+    } else {
+      preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
+    }
+
     items.push({
       title: $(node).find(".ProductResultName").text(),
-      price: $(node).find(".ProductResultPrice__ProductPrice").text(),
+      price: preprice,
       image:
         "https://www.petvalu.ca" +
         $(node).find(".Img__Wrapper > img").attr("src"),
@@ -185,7 +191,7 @@ const parsingPetValue = async (keyword) => {
   console.log(items);
 };
 
-parsingPetSmart("arm and hammer");
+// parsingPetSmart("arm and hammer");
 // parsingPetValue("cat food");
-// parsingWalmart("water");
-// getCanadianTire("cat food");
+// getWalmart("cat food");
+getCanadianTire("cat food");

@@ -1,4 +1,4 @@
-import dummy from "../dummy/dummyapi";
+import walmartdummy from "../dummy/walmartdummy";
 import Card from "./Card";
 import walmartlogo from "../img/walmart-logo.png";
 
@@ -18,7 +18,7 @@ const Walmart = () => {
           <span className="font-bold text-xl">Walmart</span>
         </div>
         <div className="mt-6">
-          {dummy.map((info: InfoType) => (
+          {walmartdummy.map((info: InfoType) => (
             <Card
               title={info.title}
               price={info.price}

@@ -1,4 +1,4 @@
-import dummy from "../dummy/dummyapi";
+import valuedummy from "../dummy/petvaluedummy";
 import Card from "./Card";
 import petvaluelogo from "../img/petvalue-logo.svg";
 
@@ -18,7 +18,7 @@ const Petvalue = () => {
           <span className="font-bold text-xl">PetValue</span>
         </div>
         <div className="mt-6">
-          {dummy.map((info: InfoType) => (
+          {valuedummy.map((info: InfoType) => (
             <Card
               title={info.title}
               price={info.price}
