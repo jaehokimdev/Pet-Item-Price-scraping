@@ -1,8 +1,6 @@
 type Props = {};
 
 const Main = (props: Props) => {
-  const getInfo = () => {};
-
   return (
     <div className="p-4 flex flex-col min-h-screen">
       <div className="mt-10 grow flex items-center justify-around">
@@ -24,10 +22,7 @@ const Main = (props: Props) => {
             </svg>
             <span className="font-bold">FindPetItems</span>
           </div>
-          <form
-            className="max-w-xl flex flex-col justify-center items-center"
-            onSubmit={getInfo}
-          >
+          <form className="max-w-xl flex flex-col justify-center items-center">
             <input
               className="sm:w-[40rem] w-72 flex border border-gray-300 rounded-full py-3 px-4 shadow-md shadow-gray-300 mb-7"
               type="text"
