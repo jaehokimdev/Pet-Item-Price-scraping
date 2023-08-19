@@ -67,7 +67,7 @@ const Header = (props: Props) => {
             </div>
             <div className="ml-[20%] flex flex-col gap-10 text-2xl max-sm:text-xl">
               <Link
-                to={"/search/totalresult"}
+                to={"/search/all"}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
