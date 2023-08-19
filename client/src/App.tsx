@@ -13,7 +13,7 @@ function App() {
     <Routes>
       <Route path="/" element={<Main />} />
       <Route path="search" element={<Layout />}>
-        <Route path="totalresult" element={<Totalresult />} />
+        <Route path="all" element={<Totalresult />} />
         <Route path="petsmart" element={<Petsmart />} />
         <Route path="petvalue" element={<Petvalue />} />
         <Route path="walmart" element={<Walmart />} />

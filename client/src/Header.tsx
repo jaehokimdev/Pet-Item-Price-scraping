@@ -71,7 +71,7 @@ const Header = (props: Props) => {
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
-                Total
+                All
               </Link>
               <Link
                 to={"/search/petsmart"}
