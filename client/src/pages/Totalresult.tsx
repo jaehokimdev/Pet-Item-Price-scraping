@@ -23,7 +23,7 @@ const Totalresult = () => {
           <img className="h-6" src={petsmartlogo} alt="petsmartlogo" />
           <span className="font-bold text-xl">PetSmart</span>
         </div>
-        <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
+        <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
             {smartdummy.map((info: InfoType) => (
               <Card
@@ -41,7 +41,7 @@ const Totalresult = () => {
           <img className="h-8 bg-black" src={petvaluelogo} alt="petvaluelogo" />
           <span className="font-bold text-xl">PetValue</span>
         </div>
-        <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
+        <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
             {valuedummy.map((info: InfoType) => (
               <Card
@@ -59,7 +59,7 @@ const Totalresult = () => {
           <img className="h-7 " src={walmartlogo} alt="walmartlogo" />
           <span className="font-bold text-xl">Walmart</span>
         </div>
-        <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
+        <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
             {walmartdummy.map((info: InfoType) => (
               <Card
@@ -77,7 +77,7 @@ const Totalresult = () => {
           <img className="h-7 " src={canadiantirelogo} alt="canadiantirelogo" />
           <span className="font-bold text-xl">CanadianTire</span>
         </div>
-        <div className="mt-5 h-[380px] w-full overflow-x-auto overflow-y-hidden">
+        <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
           <ul className="w-[2800px] whitespace-nowrap">
             {canadinatiredummy.map((info: InfoType) => (
               <Card
