@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
+import { useParams } from "react-router-dom";
 
 type Props = {};
 
 const Header = (props: Props) => {
+  const { keyword } = useParams<{ keyword?: string }>();
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
+  const [inputkeyword, setInputKeyword] = useState<string>({ keyword });
 
   return (
     <div>
@@ -35,6 +38,7 @@ const Header = (props: Props) => {
             className="w-[40rem] max-sm:w-64 flex border border-gray-300 rounded-full sm:py-3 sm:px-4 py-1 px-2 shadow-md shadow-gray-300"
             type="text"
             placeholder="ex) arm and hammer"
+            value={inputkeyword}
           />
         </div>
         <div className="flex">

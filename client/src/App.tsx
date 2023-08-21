@@ -13,11 +13,11 @@ function App() {
     <Routes>
       <Route path="/" element={<Main />} />
       <Route path="search" element={<Layout />}>
-        <Route path="all" element={<Totalresult />} />
-        <Route path="petsmart" element={<Petsmart />} />
-        <Route path="petvalue" element={<Petvalue />} />
-        <Route path="walmart" element={<Walmart />} />
-        <Route path="canadiantire" element={<Canadiantire />} />
+        <Route path="all/:keyword" element={<Totalresult />} />
+        <Route path="petsmart/:keyword" element={<Petsmart />} />
+        <Route path="petvalue/:keyword" element={<Petvalue />} />
+        <Route path="walmart/:keyword" element={<Walmart />} />
+        <Route path="canadiantire/:keyword" element={<Canadiantire />} />
       </Route>
     </Routes>
   );
