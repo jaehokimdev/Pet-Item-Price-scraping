@@ -29,7 +29,7 @@ const Main = (props: Props) => {
               placeholder="ex) arm and hammer"
             />
             <button
-              type="submit"
+              onClick={() => {}}
               className="border-gray-300 rounded-full py-2 px-4 shadow-md shadow-gray-300 w-24"
             >
               Search
