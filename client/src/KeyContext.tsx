@@ -6,7 +6,7 @@ type UserContextType = {
 };
 
 const iUserContextState = {
-  keyInfo: null,
+  keyInfo: "",
   setKeyInfo: () => {},
 };
 

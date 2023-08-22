@@ -79,7 +79,15 @@ const parsingPetValue = async (keyword) => {
 };
 
 const getWalmart = async (keyword) => {
-  let driver = await new Builder().forBrowser("chrome").build();
+  const screen = {
+    width: 640,
+    height: 480,
+  };
+
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    .build();
   let items = [];
   try {
     await driver.get(
@@ -106,11 +114,19 @@ const getWalmart = async (keyword) => {
   } finally {
     await driver.quit();
   }
-  console.log(items);
+  return items;
 };
 
 const getCanadianTire = async (keyword) => {
-  let driver = await new Builder().forBrowser("chrome").build();
+  const screen = {
+    width: 640,
+    height: 480,
+  };
+
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    .build();
   let items = [];
   try {
     await driver.get(
@@ -142,20 +158,29 @@ const getCanadianTire = async (keyword) => {
   } finally {
     await driver.quit();
   }
-  console.log(items);
+  return items;
 };
 
 app.post("/petsmart", async (req, res) => {
   const response = await parsingPetSmart(req.body.keyInfo);
-  await console.log("response", response);
+  await res.send(response);
+});
+
+app.post("/petvalue", async (req, res) => {
+  const response = await parsingPetValue(req.body.keyInfo);
+  await res.send(response);
+});
+
+app.post("/walmart", async (req, res) => {
+  const response = await getWalmart("pet " + req.body.keyInfo);
+  await res.send(response);
+});
+
+app.post("/canadiantire", async (req, res) => {
+  const response = await getCanadianTire("pet " + req.body.keyInfo);
   await res.send(response);
 });
 
 app.listen(port, () => {
   console.log("running on port " + port);
 });
-
-// parsingPetSmart("arm and hammer");
-// parsingPetValue("cat food");
-// getWalmart("cat food");
-// getCanadianTire("cat food");

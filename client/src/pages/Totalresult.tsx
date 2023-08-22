@@ -1,7 +1,3 @@
-import smartdummy from "../dummy/petsmartdummy";
-import valuedummy from "../dummy/petvaluedummy";
-import walmartdummy from "../dummy/walmartdummy";
-import canadinatiredummy from "../dummy/canadiantiredummy";
 import Card from "./Card";
 import petsmartlogo from "../img/petsmart-logo.png";
 import petvaluelogo from "../img/petvalue-logo.svg";
@@ -10,6 +6,7 @@ import canadiantirelogo from "../img/canadiantire-logo.svg";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../KeyContext";
 import { Audio } from "react-loader-spinner";
+import { useParams } from "react-router-dom";
 
 type InfoType = {
   title: string;
@@ -20,6 +17,11 @@ type InfoType = {
 
 const Totalresult = () => {
   const [petSmartInfo, setPetSmartInfo] = useState<InfoType[] | undefined>();
+  const [petValueInfo, setPetValueInfo] = useState<InfoType[] | undefined>();
+  const [walmartInfo, setWalmartInfo] = useState<InfoType[] | undefined>();
+  const [canadiantireInfo, setCanadiantireInfo] = useState<
+    InfoType[] | undefined
+  >();
   const { keyInfo }: any = useContext(UserContext);
 
   useEffect(() => {
@@ -38,6 +40,59 @@ const Totalresult = () => {
         setPetSmartInfo(items);
       });
     });
+
+    fetch("http://localhost:8001/petvalue", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        keyInfo,
+      }),
+    }).then((response) => {
+      response.json().then((items) => {
+        if (items.length !== 0) {
+          setPetValueInfo(items);
+        }
+      });
+    });
+    fetch("http://localhost:8001/walmart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        keyInfo,
+      }),
+    }).then((response) => {
+      response.json().then((items) => {
+        if (items.length !== 0) {
+          setWalmartInfo(items);
+        }
+      });
+    });
+
+    fetch("http://localhost:8001/canadiantire", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        keyInfo,
+      }),
+    }).then((response) => {
+      response.json().then((items) => {
+        if (items.length !== 0) {
+          setCanadiantireInfo(items);
+        }
+      });
+    });
   }, []);
 
   return (
@@ -53,16 +108,23 @@ const Totalresult = () => {
               <Audio height="80" width="80" color="green" ariaLabel="loading" />
             </div>
           )}
-          <ul className="w-[2800px] whitespace-nowrap">
-            {petSmartInfo?.map((info: InfoType) => (
-              <Card
-                title={info.title}
-                price={info.price}
-                image={info.image}
-                address={info.address}
-              />
-            ))}
-          </ul>
+          {petSmartInfo?.length === 0 ? (
+            <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
+              <span className="text-3xl font-bold">No items</span>
+            </div>
+          ) : (
+            <ul className="w-[200px] whitespace-nowrap">
+              {petSmartInfo?.map((info: InfoType) => (
+                <Card
+                  key={info.address}
+                  title={info.title}
+                  price={info.price}
+                  image={info.image}
+                  address={info.address}
+                />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="border-4 border-gray-300 rounded-2 pt-3 pb-5 px-3 mt-10">
@@ -71,16 +133,28 @@ const Totalresult = () => {
           <span className="font-bold text-xl">PetValue</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          <ul className="w-[2800px] whitespace-nowrap">
-            {valuedummy.map((info: InfoType) => (
-              <Card
-                title={info.title}
-                price={info.price}
-                image={info.image}
-                address={info.address}
-              />
-            ))}
-          </ul>
+          {petValueInfo === undefined && (
+            <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
+              <Audio height="80" width="80" color="green" ariaLabel="loading" />
+            </div>
+          )}
+          {petValueInfo?.length === 0 ? (
+            <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
+              <span className="text-3xl font-bold">No items</span>
+            </div>
+          ) : (
+            <ul className="w-[2800px] whitespace-nowrap">
+              {petValueInfo?.map((info: InfoType) => (
+                <Card
+                  key={info.address}
+                  title={info.title}
+                  price={info.price}
+                  image={info.image}
+                  address={info.address}
+                />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="border-4 border-gray-300 rounded-2 pt-3 pb-5 px-3 mt-10">
@@ -89,16 +163,28 @@ const Totalresult = () => {
           <span className="font-bold text-xl">Walmart</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          <ul className="w-[2800px] whitespace-nowrap">
-            {walmartdummy.map((info: InfoType) => (
-              <Card
-                title={info.title}
-                price={info.price}
-                image={info.image}
-                address={info.address}
-              />
-            ))}
-          </ul>
+          {walmartInfo === undefined && (
+            <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
+              <Audio height="80" width="80" color="green" ariaLabel="loading" />
+            </div>
+          )}
+          {walmartInfo?.length === 0 ? (
+            <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
+              <span className="text-3xl font-bold">No items</span>
+            </div>
+          ) : (
+            <ul className="w-[200px] whitespace-nowrap">
+              {walmartInfo?.map((info: InfoType) => (
+                <Card
+                  key={info.address}
+                  title={info.title}
+                  price={info.price}
+                  image={info.image}
+                  address={info.address}
+                />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
       <div className="border-4 border-gray-300 rounded-2 pt-3 pb-5 px-3 mt-10">
@@ -107,16 +193,28 @@ const Totalresult = () => {
           <span className="font-bold text-xl">CanadianTire</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          <ul className="w-[2800px] whitespace-nowrap">
-            {canadinatiredummy.map((info: InfoType) => (
-              <Card
-                title={info.title}
-                price={info.price}
-                image={info.image}
-                address={info.address}
-              />
-            ))}
-          </ul>
+          {canadiantireInfo === undefined && (
+            <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
+              <Audio height="80" width="80" color="green" ariaLabel="loading" />
+            </div>
+          )}
+          {canadiantireInfo?.length === 0 ? (
+            <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
+              <span className="text-3xl font-bold">No items</span>
+            </div>
+          ) : (
+            <ul className="w-[200px] whitespace-nowrap">
+              {canadiantireInfo?.map((info: InfoType) => (
+                <Card
+                  key={info.address}
+                  title={info.title}
+                  price={info.price}
+                  image={info.image}
+                  address={info.address}
+                />
+              ))}
+            </ul>
+          )}
         </div>
       </div>
     </div>

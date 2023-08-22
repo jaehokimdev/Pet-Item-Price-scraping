@@ -2,13 +2,24 @@ import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import UserContext from "./KeyContext";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const { keyInfo, setKeyInfo }: any = useContext(UserContext);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyInfo(e.target.value);
+  };
+
+  const checkInput = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (keyInfo === "") {
+      alert("Please enter keyword");
+    } else {
+      navigate(`/search/all/${keyInfo}`);
+    }
   };
 
   return (
@@ -35,13 +46,15 @@ const Header = () => {
           <span className="font-bold lg:hidden max-sm:text-xl">FPI</span>
         </a>
         <div>
-          <input
-            className="w-[40rem] max-sm:w-64 flex border border-gray-300 rounded-full sm:py-3 sm:px-4 py-1 px-2 shadow-md shadow-gray-300"
-            type="text"
-            placeholder="ex) arm and hammer"
-            value={keyInfo}
-            onChange={handleOnChange}
-          />
+          <form onSubmit={checkInput}>
+            <input
+              className="w-[40rem] max-sm:w-64 flex border border-gray-300 rounded-full sm:py-3 sm:px-4 py-1 px-2 shadow-md shadow-gray-300"
+              type="text"
+              placeholder="ex) arm and hammer"
+              value={keyInfo}
+              onChange={handleOnChange}
+            />
+          </form>
         </div>
         <div className="flex">
           <button
