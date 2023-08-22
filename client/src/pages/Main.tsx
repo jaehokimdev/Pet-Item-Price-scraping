@@ -1,23 +1,25 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UserContext from "../KeyContext";
 
 type Props = {};
 
 const Main = (props: Props) => {
   const navigate = useNavigate();
-  const [keyword, setKeyword] = useState<string>("");
   const [inputvalue, setInputValue] = useState<boolean>(false);
+  const { keyInfo, setKeyInfo }: any = useContext(UserContext);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
+    setKeyInfo(e.target.value);
+    console.log(keyInfo);
   };
 
   const checkInput = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (keyword === "") {
+    if (keyInfo === "") {
       setInputValue(true);
     } else {
-      navigate(`/search/all/${keyword}`);
+      navigate(`/search/all/${keyInfo}`);
     }
   };
 
@@ -50,7 +52,7 @@ const Main = (props: Props) => {
               className="sm:w-[40rem] w-72 flex border border-gray-300 rounded-full py-3 px-4 shadow-md shadow-gray-300 mb-7"
               type="text"
               placeholder="ex) arm and hammer"
-              value={keyword}
+              value={keyInfo}
               onChange={handleOnChange}
             />
             <button
