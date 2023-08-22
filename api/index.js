@@ -48,7 +48,7 @@ const parsingPetSmart = async (keyword) => {
       address: "https://www.petsmart.ca" + $(node).attr("href"),
     });
   });
-  console.log(items);
+  return items;
 };
 
 const parsingPetValue = async (keyword) => {
@@ -75,7 +75,7 @@ const parsingPetValue = async (keyword) => {
         $(node).find(".ProductResultImage").attr("href"),
     });
   });
-  console.log(items);
+  return items;
 };
 
 const getWalmart = async (keyword) => {
@@ -145,10 +145,10 @@ const getCanadianTire = async (keyword) => {
   console.log(items);
 };
 
-app.get("/petsmart", (req, res) => {
-  const { keyword } = req.query;
-  const result = parsingPetSmart({ keyword });
-  res.send(result);
+app.post("/petsmart", async (req, res) => {
+  const response = await parsingPetSmart(req.body.keyInfo);
+  await console.log("response", response);
+  await res.send(response);
 });
 
 app.listen(port, () => {

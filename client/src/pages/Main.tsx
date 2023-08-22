@@ -11,7 +11,6 @@ const Main = (props: Props) => {
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyInfo(e.target.value);
-    console.log(keyInfo);
   };
 
   const checkInput = (e: React.FormEvent<HTMLFormElement>) => {

@@ -7,6 +7,9 @@ import petsmartlogo from "../img/petsmart-logo.png";
 import petvaluelogo from "../img/petvalue-logo.svg";
 import walmartlogo from "../img/walmart-logo.png";
 import canadiantirelogo from "../img/canadiantire-logo.svg";
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../KeyContext";
+import { Audio } from "react-loader-spinner";
 
 type InfoType = {
   title: string;
@@ -16,6 +19,27 @@ type InfoType = {
 };
 
 const Totalresult = () => {
+  const [petSmartInfo, setPetSmartInfo] = useState<InfoType[] | undefined>();
+  const { keyInfo }: any = useContext(UserContext);
+
+  useEffect(() => {
+    fetch("http://localhost:8001/petsmart", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+      body: JSON.stringify({
+        keyInfo,
+      }),
+    }).then((response) => {
+      response.json().then((items) => {
+        setPetSmartInfo(items);
+      });
+    });
+  }, []);
+
   return (
     <div className="flex flex-col px-[12%] max-sm:px-[5%] gap-4">
       <div className="border-4 border-gray-200 rounded-2 pt-3 pb-5 px-3 mt-10">
@@ -24,8 +48,13 @@ const Totalresult = () => {
           <span className="font-bold text-xl">PetSmart</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
+          {petSmartInfo === undefined && (
+            <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
+              <Audio height="80" width="80" color="green" ariaLabel="loading" />
+            </div>
+          )}
           <ul className="w-[2800px] whitespace-nowrap">
-            {smartdummy.map((info: InfoType) => (
+            {petSmartInfo?.map((info: InfoType) => (
               <Card
                 title={info.title}
                 price={info.price}

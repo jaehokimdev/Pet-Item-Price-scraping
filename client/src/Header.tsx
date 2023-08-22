@@ -3,15 +3,12 @@ import { Link } from "react-router-dom";
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import UserContext from "./KeyContext";
 
-type Props = {};
-
-const Header = (props: Props) => {
+const Header = () => {
   const [isMenuToggled, setIsMenuToggled] = useState<boolean>(false);
   const { keyInfo, setKeyInfo }: any = useContext(UserContext);
 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setKeyInfo(e.target.value);
-    console.log(keyInfo);
   };
 
   return (
