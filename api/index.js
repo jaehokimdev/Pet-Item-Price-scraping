@@ -117,6 +117,52 @@ const getWalmart = async (keyword) => {
   return items;
 };
 
+const getWalmart2 = async (keyword) => {
+  const screen = {
+    width: 640,
+    height: 480,
+  };
+
+  let driver = await new Builder()
+    .forBrowser("chrome")
+    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    .build();
+  let items = [];
+  try {
+    await driver.get("https://www.walmart.ca/en");
+    await driver.wait(until.elementLocated(By.id("search-form-input")), 15000);
+    const searchInput = await driver.findElement(By.id("search-form-input"));
+    await searchInput.sendKeys({ keyword });
+    const searchButton = await driver.findElement(
+      By.className("css-1v9c0kj e1xoeh2i2")
+    );
+    await searchButton.click();
+
+    let time = await driver.wait(
+      until.elementLocated(By.className("css-1p4va6y")),
+      15000
+    );
+    titles = await driver.findElements(By.className("css-1p4va6y"));
+    prices = await driver.findElements(By.className("css-8frhg8"));
+    images = await driver.findElements(By.className("css-19q6667"));
+    addresses = await driver.findElements(By.className("css-770c6j"));
+    for (var i = 0; i < prices.length; i++) {
+      items.push({
+        title: await titles[i].getText(),
+        price: await prices[i].getText(),
+        image: await images[i].getAttribute("src"),
+        address: await addresses[i].getAttribute("href"),
+      });
+    }
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await driver.quit();
+  }
+  return items;
+  console.log(items);
+};
+
 const getCanadianTire = async (keyword) => {
   const screen = {
     width: 640,
@@ -184,3 +230,5 @@ app.post("/canadiantire", async (req, res) => {
 app.listen(port, () => {
   console.log("running on port " + port);
 });
+
+getWalmart2("arm and hammer");
