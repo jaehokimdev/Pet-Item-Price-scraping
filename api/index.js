@@ -5,6 +5,7 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const { Builder, By, Key, until } = require("selenium-webdriver");
 const chrome = require("selenium-webdriver/chrome");
+const puppeteer = require("puppeteer");
 const port = 8001;
 
 app.use(cors());
@@ -51,30 +52,65 @@ const parsingPetSmart = async (keyword) => {
   return items;
 };
 
-const parsingPetValue = async (keyword) => {
-  const html = await getPetValue(keyword);
-  const $ = cheerio.load(html.data);
-  const $itemList = $(".DynamicProductListItem__Product");
-  let items = [];
-  $itemList.each((idx, node) => {
-    let preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
-    if (preprice.lastIndexOf("$") !== 0) {
-      preprice = preprice.substring(0, preprice.lastIndexOf("$")) + " SALE";
-    } else {
-      preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
-    }
+// const parsingPetValue = async (keyword) => {
+//   const html = await getPetValue(keyword);
+//   const $ = cheerio.load(html.data);
+//   const $itemList = $(".DynamicProductListItem__Product");
+//   let items = [];
+//   $itemList.each((idx, node) => {
+//     let preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
+//     if (preprice.lastIndexOf("$") !== 0) {
+//       preprice = preprice.substring(0, preprice.lastIndexOf("$")) + " SALE";
+//     } else {
+//       preprice = $(node).find(".ProductResultPrice__ProductPrice").text();
+//     }
 
-    items.push({
-      title: $(node).find(".ProductResultName").text(),
-      price: preprice,
-      image:
-        "https://www.petvalu.ca" +
-        $(node).find(".Img__Wrapper > img").attr("src"),
-      address:
-        "https://www.petvalu.ca" +
-        $(node).find(".ProductResultImage").attr("href"),
-    });
+//     items.push({
+//       title: $(node).find(".ProductResultName").text(),
+//       price: preprice,
+//       image:
+//         "https://www.petvalu.ca" +
+//         $(node).find(".Img__Wrapper > img").attr("src"),
+//       address:
+//         "https://www.petvalu.ca" +
+//         $(node).find(".ProductResultImage").attr("href"),
+//     });
+//   });
+//   return items;
+// };
+
+const parsingPetValue = async (keyword) => {
+  const browser = await puppeteer.launch({
+    headless: "new",
+    ignoreDefaultArgs: ["--enable-automation"],
+    args: ["--disable-blink-features=AutomationControlled"],
   });
+  const page = await browser.newPage();
+  await page.goto("https://www.petvalu.ca/");
+  const searchInput = ".SearchBoxCommon__Input";
+  await page.waitForSelector(searchInput);
+  await page.type(".SearchBoxCommon__Input", keyword);
+  await page.keyboard.press("Enter");
+  await page.waitForSelector(".storeLocator__confirmStoreButton");
+  const button = ".storeLocator__confirmStoreButton";
+  await page.click(button);
+  await page.waitForSelector(".ProductResultPrice__ProductPrice");
+
+  const items = await page.$$eval(
+    ".DynamicProductListItem__Product",
+    (elements) =>
+      elements.map((e) => ({
+        title: e.querySelector(".ProductResultName").innerText,
+        price: e.querySelector(".ProductResultPrice__ProductPrice").innerText,
+        image:
+          "https://www.petvalu.ca" +
+          e.querySelector(".Img__Wrapper img").getAttribute("src"),
+        address:
+          "https://www.petvalu.ca" +
+          e.querySelector(".ProductResultImage").getAttribute("href"),
+      }))
+  );
+  await browser.close();
   return items;
 };
 
@@ -125,14 +161,19 @@ const getWalmart2 = async (keyword) => {
 
   let driver = await new Builder()
     .forBrowser("chrome")
-    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    // .setChromeOptions(new chrome.Options().headless().windowSize(screen))
+    // .setChromeOptions(
+    //   new chrome.Options().AddArgument(
+    //     "--disable-blink-features=AutomationControlled"
+    //   )
+    // )
     .build();
   let items = [];
   try {
     await driver.get("https://www.walmart.ca/en");
     await driver.wait(until.elementLocated(By.id("search-form-input")), 15000);
     const searchInput = await driver.findElement(By.id("search-form-input"));
-    await searchInput.sendKeys({ keyword });
+    await searchInput.sendKeys("arm and hammer");
     const searchButton = await driver.findElement(
       By.className("css-1v9c0kj e1xoeh2i2")
     );
@@ -140,7 +181,7 @@ const getWalmart2 = async (keyword) => {
 
     let time = await driver.wait(
       until.elementLocated(By.className("css-1p4va6y")),
-      15000
+      115000
     );
     titles = await driver.findElements(By.className("css-1p4va6y"));
     prices = await driver.findElements(By.className("css-8frhg8"));
@@ -230,5 +271,3 @@ app.post("/canadiantire", async (req, res) => {
 app.listen(port, () => {
   console.log("running on port " + port);
 });
-
-getWalmart2("arm and hammer");
