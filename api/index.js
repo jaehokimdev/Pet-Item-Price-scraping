@@ -111,6 +111,11 @@ const parsingPetValue = async (keyword) => {
       }))
   );
   await browser.close();
+  items.map((item) => {
+    if (item.title.includes("Buy")) {
+      item.title = item.title.substr(0, item.title.indexOf("Buy"));
+    }
+  });
   return items;
 };
 

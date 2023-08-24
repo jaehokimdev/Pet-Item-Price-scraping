@@ -143,7 +143,7 @@ const Totalresult = () => {
               <span className="text-3xl font-bold">No items</span>
             </div>
           ) : (
-            <ul className="w-[2800px] whitespace-nowrap">
+            <ul className="w-[200px] whitespace-nowrap">
               {petValueInfo?.map((info: InfoType) => (
                 <Card
                   key={info.address}
