@@ -88,9 +88,7 @@ const Totalresult = () => {
       }),
     }).then((response) => {
       response.json().then((items) => {
-        if (items.length !== 0) {
-          setCanadiantireInfo(items);
-        }
+        setCanadiantireInfo(items);
       });
     });
   }, []);

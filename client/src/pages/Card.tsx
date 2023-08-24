@@ -2,7 +2,7 @@ type Props = { title: string; price: string; image: string; address: string };
 
 const Card = (props: Props) => {
   return (
-    <a href={props.address}>
+    <a href={props.address} target="_blank" rel="noreferrer">
       <li className="relative mx-5 max-sm:mx-2 inline-block h-[360px] w-[200px] max-sm:h-[250px] max-sm:w-[127px]  border border-gray-300 rounded-2 py-3 px-3 mb-6">
         <div className="whitespace-normal flex flex-col">
           <img
