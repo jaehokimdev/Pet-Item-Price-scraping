@@ -12,8 +12,27 @@ import UserContext from "./KeyContext";
 
 function App() {
   const [keyInfo, setKeyInfo] = useState<string | null>(null);
+  const [petsmartInfo, setPetsmartInfo] = useState<string[] | null>(null);
+  const [petValuInfo, setPetValuInfo] = useState<string[] | null>(null);
+  const [walmartInfo, setWalmartInfo] = useState<string[] | null>(null);
+  const [canadiantireInfo, setCanadiantireInfo] = useState<string[] | null>(
+    null
+  );
   return (
-    <UserContext.Provider value={{ keyInfo, setKeyInfo }}>
+    <UserContext.Provider
+      value={{
+        keyInfo,
+        setKeyInfo,
+        petsmartInfo,
+        setPetsmartInfo,
+        petValuInfo,
+        setPetValuInfo,
+        walmartInfo,
+        setWalmartInfo,
+        canadiantireInfo,
+        setCanadiantireInfo,
+      }}
+    >
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="search" element={<Layout />}>

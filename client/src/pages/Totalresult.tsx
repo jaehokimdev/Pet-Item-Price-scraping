@@ -16,13 +16,21 @@ type InfoType = {
 };
 
 const Totalresult = () => {
-  const [petSmartInfo, setPetSmartInfo] = useState<InfoType[] | undefined>();
-  const [petValueInfo, setPetValueInfo] = useState<InfoType[] | undefined>();
-  const [walmartInfo, setWalmartInfo] = useState<InfoType[] | undefined>();
-  const [canadiantireInfo, setCanadiantireInfo] = useState<
-    InfoType[] | undefined
-  >();
-  const { keyInfo }: any = useContext(UserContext);
+  const [loading1, setLoading1] = useState(true);
+  const [loading2, setLoading2] = useState(true);
+  const [loading3, setLoading3] = useState(true);
+  const [loading4, setLoading4] = useState(true);
+  const {
+    keyInfo,
+    petsmartInfo,
+    setPetsmartInfo,
+    petValuInfo,
+    setPetValuInfo,
+    walmartInfo,
+    setWalmartInfo,
+    canadiantireInfo,
+    setCanadiantireInfo,
+  }: any = useContext(UserContext);
 
   useEffect(() => {
     fetch("http://localhost:8001/petsmart", {
@@ -37,7 +45,8 @@ const Totalresult = () => {
       }),
     }).then((response) => {
       response.json().then((items) => {
-        setPetSmartInfo(items);
+        setPetsmartInfo(items);
+        setLoading1(false);
       });
     });
 
@@ -54,7 +63,8 @@ const Totalresult = () => {
     }).then((response) => {
       response.json().then((items) => {
         if (items.length !== 0) {
-          setPetValueInfo(items);
+          setPetValuInfo(items);
+          setLoading2(false);
         }
       });
     });
@@ -72,6 +82,7 @@ const Totalresult = () => {
       response.json().then((items) => {
         if (items.length !== 0) {
           setWalmartInfo(items);
+          setLoading3(false);
         }
       });
     });
@@ -89,6 +100,7 @@ const Totalresult = () => {
     }).then((response) => {
       response.json().then((items) => {
         setCanadiantireInfo(items);
+        setLoading4(false);
       });
     });
   }, []);
@@ -101,18 +113,18 @@ const Totalresult = () => {
           <span className="font-bold text-xl">PetSmart</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          {petSmartInfo === undefined && (
+          {loading1 && (
             <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
               <Audio height="80" width="80" color="green" ariaLabel="loading" />
             </div>
           )}
-          {petSmartInfo?.length === 0 ? (
+          {petsmartInfo?.length === 0 ? (
             <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
               <span className="text-3xl font-bold">No items</span>
             </div>
           ) : (
             <ul className="w-[200px] whitespace-nowrap">
-              {petSmartInfo?.map((info: InfoType) => (
+              {petsmartInfo?.map((info: InfoType) => (
                 <Card
                   key={info.address}
                   title={info.title}
@@ -131,18 +143,18 @@ const Totalresult = () => {
           <span className="font-bold text-xl">PetValue</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          {petValueInfo === undefined && (
+          {loading2 && (
             <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
               <Audio height="80" width="80" color="green" ariaLabel="loading" />
             </div>
           )}
-          {petValueInfo?.length === 0 ? (
+          {petValuInfo?.length === 0 ? (
             <div className="flex items-center justify-center py-[15%] max-sm:py-[20%]">
               <span className="text-3xl font-bold">No items</span>
             </div>
           ) : (
             <ul className="w-[200px] whitespace-nowrap">
-              {petValueInfo?.map((info: InfoType) => (
+              {petValuInfo?.map((info: InfoType) => (
                 <Card
                   key={info.address}
                   title={info.title}
@@ -161,7 +173,7 @@ const Totalresult = () => {
           <span className="font-bold text-xl">Walmart</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          {walmartInfo === undefined && (
+          {loading3 && (
             <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
               <Audio height="80" width="80" color="green" ariaLabel="loading" />
             </div>
@@ -191,7 +203,7 @@ const Totalresult = () => {
           <span className="font-bold text-xl">CanadianTire</span>
         </div>
         <div className="mt-5 h-[380px] max-sm:h-[260px] w-full overflow-x-auto overflow-y-hidden">
-          {canadiantireInfo === undefined && (
+          {loading4 && (
             <div className="flex items-center justify-center py-[12%] max-sm:py-[20%]">
               <Audio height="80" width="80" color="green" ariaLabel="loading" />
             </div>
