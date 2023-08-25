@@ -18,18 +18,18 @@
 
 ## Functionality
 
-  ### Search item
+  #### Search item
 
   <p align="center"><img src="./screenshots/1.png" width="80%" /></p>
 
-  ### Total results
+  #### Total results
 
   <p align="center"><img src="./screenshots/2.png" width="80%" /></p>
 
-  ### Menu
+  #### Menu
 
   <p align="center"><img src="./screenshots/3.png" width="80%" /></p>
 
-  ### Single store items
+  #### Single store items
 
   <p align="center"><img src="./screenshots/4.png" width="80%" /></p>
