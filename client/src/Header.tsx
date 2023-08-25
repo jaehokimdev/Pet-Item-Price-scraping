@@ -14,8 +14,8 @@ const Header = () => {
   };
 
   const checkInput = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
     if (keyInfo === "") {
+      e.preventDefault();
       alert("Please enter keyword");
     } else {
       navigate(`/search/all/${keyInfo}`);
@@ -86,35 +86,35 @@ const Header = () => {
             </div>
             <div className="ml-[20%] flex flex-col gap-10 text-2xl max-sm:text-xl">
               <Link
-                to={"/search/all"}
+                to={`/search/all/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
                 All
               </Link>
               <Link
-                to={"/search/petsmart"}
+                to={`/search/petsmart/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
                 Petsmart
               </Link>
               <Link
-                to={"/search/petvalue"}
+                to={`/search/petvalue/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
                 PetValue
               </Link>
               <Link
-                to={"/search/walmart"}
+                to={`/search/walmart/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >
                 Walmart
               </Link>
               <Link
-                to={"/search/canadiantire"}
+                to={`/search/canadiantire/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}
                 className="font-bold hover:text-gray-300"
               >

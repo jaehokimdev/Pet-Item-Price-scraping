@@ -167,12 +167,12 @@ app.post("/petvalue", async (req, res) => {
 });
 
 app.post("/walmart", async (req, res) => {
-  const response = await getWalmart("pet " + req.body.keyInfo);
+  const response = await getWalmart(req.body.keyInfo);
   await res.send(response);
 });
 
 app.post("/canadiantire", async (req, res) => {
-  const response = await getCanadianTire("pet " + req.body.keyInfo);
+  const response = await getCanadianTire(req.body.keyInfo);
   await res.send(response);
 });
 
