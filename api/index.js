@@ -84,41 +84,30 @@ const getPetValue = async (keyword) => {
 };
 
 const getWalmart = async (keyword) => {
-  const screen = {
-    width: 640,
-    height: 480,
-  };
+  const browser = await puppeteer.launch({
+    headless: "new",
+    ignoreDefaultArgs: ["--enable-automation"],
+    args: ["--disable-blink-features=AutomationControlled"],
+  });
+  const page = await browser.newPage();
+  await page.goto("https://www.walmart.ca/en");
+  const searchInput = "#search-form-input";
+  await page.waitForSelector(searchInput);
+  await page.type("#search-form-input", keyword);
+  await page.keyboard.press("Enter");
+  await page.waitForSelector(".css-2vqe5n");
 
-  let driver = await new Builder()
-    .forBrowser("chrome")
-    .setChromeOptions(new chrome.Options().headless().windowSize(screen))
-    .build();
-  let items = [];
-  try {
-    await driver.get(
-      "https://www.walmart.ca/search?q=" + encodeURI(keyword) + "&c=21103"
-    );
-    let time = await driver.wait(
-      until.elementLocated(By.className("css-1p4va6y")),
-      15000
-    );
-    titles = await driver.findElements(By.className("css-1p4va6y"));
-    prices = await driver.findElements(By.className("css-8frhg8"));
-    images = await driver.findElements(By.className("css-19q6667"));
-    addresses = await driver.findElements(By.className("css-770c6j"));
-    for (var i = 0; i < prices.length; i++) {
-      items.push({
-        title: await titles[i].getText(),
-        price: await prices[i].getText(),
-        image: await images[i].getAttribute("src"),
-        address: await addresses[i].getAttribute("href"),
-      });
-    }
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await driver.quit();
-  }
+  const items = await page.$$eval(".css-3ky18c", (elements) =>
+    elements.map((e) => ({
+      title: e.querySelector(".css-1p4va6y").innerText,
+      price: e.querySelector(".css-2vqe5n").innerText,
+      image: e.querySelector(".css-19q6667").getAttribute("src"),
+      address:
+        "https://www.walmart.ca" +
+        e.querySelector(".css-770c6j").getAttribute("href"),
+    }))
+  );
+  await browser.close();
   return items;
 };
 
