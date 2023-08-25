@@ -20,16 +20,16 @@
 
   ### Search item
 
-      <p align="center"><img src="./screenshots/1.png" width="80%" /></p>
+  <p align="center"><img src="./screenshots/1.png" width="80%" /></p>
 
   ### Total results
 
-        <p align="center"><img src="./screenshots/2.png" width="80%" /></p>
+  <p align="center"><img src="./screenshots/2.png" width="80%" /></p>
 
   ### Menu
 
-        <p align="center"><img src="./screenshots/3.png" width="80%" /></p>
+  <p align="center"><img src="./screenshots/3.png" width="80%" /></p>
 
   ### Single store items
 
-          <p align="center"><img src="./screenshots/4.png" width="80%" /></p>
+  <p align="center"><img src="./screenshots/4.png" width="80%" /></p>
