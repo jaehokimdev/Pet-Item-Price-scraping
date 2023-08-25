@@ -4,7 +4,7 @@
 
 > This web application is scraping item price on Petsmart, Petvalu, Walmart and canadiantire web sites using Selenium and Puppeteer library.
 
-##Languages
+## Languages
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS](https://img.shields.io/badge/CSS-239120?&style=for-the-badge&logo=css3&logoColor=white)
@@ -16,7 +16,7 @@
 ![TAILWINDCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
 
-##Functionality
+## Functionality
 
   ### Search item
 
