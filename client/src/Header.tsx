@@ -45,8 +45,8 @@ const Header = () => {
           </span>
           <span className="font-bold lg:hidden max-sm:text-xl">FPI</span>
         </a>
-        <div>
-          <form onSubmit={checkInput}>
+        <div className="flex items-center gap-1">
+          {/* <form onSubmit={checkInput}>
             <input
               className="w-[40rem] max-sm:w-64 flex border border-gray-300 rounded-full sm:py-3 sm:px-4 py-1 px-2 shadow-md shadow-gray-300"
               type="text"
@@ -54,7 +54,13 @@ const Header = () => {
               value={keyInfo}
               onChange={handleOnChange}
             />
-          </form>
+          </form> */}
+          <a
+            href="/"
+            className="font-bold lg:text-xl border border-gray-300 rounded-full py-2 px-5 shadow-md shadow-gray-300"
+          >
+            {keyInfo}
+          </a>
         </div>
         <div className="flex">
           <button
@@ -85,6 +91,13 @@ const Header = () => {
               </button>
             </div>
             <div className="ml-[20%] flex flex-col gap-10 text-2xl max-sm:text-xl">
+              <Link
+                to={`/`}
+                onClick={() => setIsMenuToggled(!isMenuToggled)}
+                className="font-bold hover:text-gray-300"
+              >
+                Search
+              </Link>
               <Link
                 to={`/search/all/${keyInfo}`}
                 onClick={() => setIsMenuToggled(!isMenuToggled)}

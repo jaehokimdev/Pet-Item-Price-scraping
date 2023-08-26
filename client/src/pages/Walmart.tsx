@@ -1,6 +1,7 @@
-import walmartdummy from "../dummy/walmartdummy";
 import Card from "./Card";
 import walmartlogo from "../img/walmart-logo.png";
+import { useContext } from "react";
+import UserContext from "../KeyContext";
 
 type InfoType = {
   title: string;
@@ -10,6 +11,8 @@ type InfoType = {
 };
 
 const Walmart = () => {
+  const { walmartInfo }: any = useContext(UserContext);
+
   return (
     <div className="flex flex-col px-[12%] max-sm:px-[5%] gap-4">
       <div className="border-4 border-gray-200 rounded-2 pt-3 pb-5 px-3 mt-10">
@@ -18,7 +21,7 @@ const Walmart = () => {
           <span className="font-bold text-xl">Walmart</span>
         </div>
         <div className="mt-6">
-          {walmartdummy.map((info: InfoType) => (
+          {walmartInfo.map((info: InfoType) => (
             <Card
               title={info.title}
               price={info.price}

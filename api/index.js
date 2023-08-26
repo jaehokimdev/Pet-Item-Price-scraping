@@ -44,25 +44,25 @@ const parsingPetSmart = async (keyword) => {
 };
 
 const getPetValue = async (keyword) => {
-  const browser = await puppeteer.launch({
-    headless: "new",
-    ignoreDefaultArgs: ["--enable-automation"],
-    args: ["--disable-blink-features=AutomationControlled"],
-  });
-  const page = await browser.newPage();
-  await page.goto("https://www.petvalu.ca/");
-  const searchInput = ".SearchBoxCommon__Input";
-  await page.waitForSelector(searchInput);
-  await page.type(".SearchBoxCommon__Input", keyword);
-  await page.keyboard.press("Enter");
-  await page.waitForSelector(".storeLocator__confirmStoreButton");
-  const button = ".storeLocator__confirmStoreButton";
-  await page.click(button);
-  await page.waitForSelector(".ProductResultPrice__ProductPrice");
+  let items = [];
+  try {
+    const browser = await puppeteer.launch({
+      headless: "new",
+      ignoreDefaultArgs: ["--enable-automation"],
+      args: ["--disable-blink-features=AutomationControlled"],
+    });
+    const page = await browser.newPage();
+    await page.goto("https://www.petvalu.ca/");
+    const searchInput = ".SearchBoxCommon__Input";
+    await page.waitForSelector(searchInput);
+    await page.type(".SearchBoxCommon__Input", keyword);
+    await page.keyboard.press("Enter");
+    await page.waitForSelector(".storeLocator__confirmStoreButton");
+    const button = ".storeLocator__confirmStoreButton";
+    await page.click(button);
+    await page.waitForSelector(".ProductResultPrice__ProductPrice");
 
-  const items = await page.$$eval(
-    ".DynamicProductListItem__Product",
-    (elements) =>
+    items = await page.$$eval(".DynamicProductListItem__Product", (elements) =>
       elements.map((e) => ({
         title: e.querySelector(".ProductResultName").innerText,
         price: e.querySelector(".ProductResultPrice__ProductPrice").innerText,
@@ -73,10 +73,14 @@ const getPetValue = async (keyword) => {
           "https://www.petvalu.ca" +
           e.querySelector(".ProductResultImage").getAttribute("href"),
       }))
-  );
-  await browser.close();
+    );
+    await browser.close();
+  } catch (e) {
+    console.error(e);
+    return items;
+  }
   items.map((item) => {
-    if (item.title.includes("Buy")) {
+    if (item?.title.includes("Buy")) {
       item.title = item.title.substr(0, item.title.indexOf("Buy"));
     }
   });
@@ -84,31 +88,40 @@ const getPetValue = async (keyword) => {
 };
 
 const getWalmart = async (keyword) => {
-  const browser = await puppeteer.launch({
-    headless: "new",
-    ignoreDefaultArgs: ["--enable-automation"],
-    args: ["--disable-blink-features=AutomationControlled"],
-  });
-  const page = await browser.newPage();
-  await page.goto("https://www.walmart.ca/en");
-  const searchInput = "#search-form-input";
-  await page.waitForSelector(searchInput);
-  await page.type("#search-form-input", keyword);
-  await page.keyboard.press("Enter");
-  await page.waitForSelector(".css-2vqe5n");
+  let items = [];
+  try {
+    const browser = await puppeteer.launch({
+      headless: "new",
+      ignoreDefaultArgs: ["--enable-automation"],
+      args: ["--disable-blink-features=AutomationControlled"],
+    });
+    const page = await browser.newPage();
+    await page.goto("https://www.walmart.ca/en");
+    const searchInput = "#search-form-input";
+    await page.waitForSelector(searchInput);
+    await page.type("#search-form-input", keyword);
+    await page.keyboard.press("Enter");
+    await page.waitForSelector(".css-2vqe5n");
 
-  const items = await page.$$eval(".css-3ky18c", (elements) =>
-    elements.map((e) => ({
-      title: e.querySelector(".css-1p4va6y").innerText,
-      price: e.querySelector(".css-2vqe5n").innerText,
-      image: e.querySelector(".css-19q6667").getAttribute("src"),
-      address:
-        "https://www.walmart.ca" +
-        e.querySelector(".css-770c6j").getAttribute("href"),
-    }))
-  );
-  await browser.close();
-  return items;
+    items = await page.$$eval(".css-3ky18c", (elements) =>
+      elements.map((e) => ({
+        title: e.querySelector(".css-1p4va6y").innerText,
+        price: e.querySelector(".css-2vqe5n").innerText,
+        image: e.querySelector(".css-19q6667").getAttribute("src"),
+        address:
+          "https://www.walmart.ca" +
+          e.querySelector(".css-770c6j").getAttribute("href"),
+      }))
+    );
+    await browser.close();
+  } catch (e) {
+    console.error(e);
+  }
+  if (items.length === 0) {
+    return (items = []);
+  } else {
+    return items;
+  }
 };
 
 const getCanadianTire = async (keyword) => {
