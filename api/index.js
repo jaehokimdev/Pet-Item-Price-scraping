@@ -116,6 +116,7 @@ const getWalmart = async (keyword) => {
     await browser.close();
   } catch (e) {
     console.error(e);
+    return items;
   }
   if (items.length === 0) {
     return (items = []);

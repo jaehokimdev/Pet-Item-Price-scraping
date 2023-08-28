@@ -21,6 +21,11 @@ const Petvalue = () => {
           <span className="font-bold text-xl">PetValue</span>
         </div>
         <div className="mt-6">
+          {petValuInfo?.length === 0 && (
+            <div className="flex items-center justify-center py-[10%] max-sm:py-[20%]">
+              <span className="text-3xl font-bold">No items</span>
+            </div>
+          )}
           {petValuInfo.map((info: InfoType) => (
             <Card
               title={info.title}

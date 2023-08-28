@@ -62,10 +62,8 @@ const Totalresult = () => {
       }),
     }).then((response) => {
       response.json().then((items) => {
-        if (items.length !== 0) {
-          setPetValuInfo(items);
-          setLoading2(false);
-        }
+        setPetValuInfo(items);
+        setLoading2(false);
       });
     });
     fetch("http://localhost:8001/walmart", {
@@ -80,10 +78,8 @@ const Totalresult = () => {
       }),
     }).then((response) => {
       response.json().then((items) => {
-        if (items.length !== 0) {
-          setWalmartInfo(items);
-          setLoading3(false);
-        }
+        setWalmartInfo(items);
+        setLoading3(false);
       });
     });
 
